@@ -1,10 +1,3 @@
-Here is the **complete, updated `README.md**`.
-
-I have interpreted "all the docs" to mean you want **Technical Documentation** included in the README. This is excellent for a portfolio because it explains *how* your code solves the specific problems (like handling the dots in currency).
-
-Copy the code block below and overwrite your existing `README.md`.
-
-```markdown
 # Discount Calculator App 🇮🇩
 
 A clean, single-page Flask application designed to calculate discounts with Indonesian Rupiah (IDR) formatting.
@@ -18,7 +11,7 @@ A clean, single-page Flask application designed to calculate discounts with Indo
 
 ## 📂 Project Structure
 
-```text
+```t
 discount-calculator/
 │
 ├── app.py                # Backend: Flask routes & logic
