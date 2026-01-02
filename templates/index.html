@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Simple Discount Calculator</title>
+        <link
+            rel="stylesheet"
+            href="{{ url_for('static', filename='style.css') }}"
+        />
+    </head>
+    <body>
+        <div class="section intro">
+            <h1>Discount Calculator</h1>
+            <p>A simple tool to help you calculate discounts quickly.</p>
+        </div>
+
+        <div class="section guide">
+            <h3>How to use:</h3>
+            <ul>
+                <li>
+                    Enter the <strong>Original Price</strong> (e.g., 20000).
+                </li>
+                <li>
+                    Enter the <strong>Discount Percentage</strong> (e.g., 25).
+                </li>
+                <li>Click <strong>Calculate</strong>.</li>
+            </ul>
+        </div>
+
+        <div class="section calculator-box">
+            <form method="POST" action="/">
+                <div class="input-group">
+                    <label>Original Price (Rp)</label>
+                    <input
+                        type="text"
+                        name="price"
+                        id="priceInput"
+                        value="{{ request.form.price }}"
+                        placeholder="e.g. 100.000"
+                        onkeyup="formatCurrency(this)"
+                        required
+                    />
+                </div>
+
+                <div class="input-group">
+                    <label>Discount (%)</label>
+                    <input
+                        type="number"
+                        name="discount"
+                        value="{{ request.form.discount }}"
+                        required
+                    />
+                </div>
+
+                <button type="submit">Calculate</button>
+            </form>
+
+            <script>
+                function formatCurrency(input) {
+                    // 1. Get the value and remove any existing dots
+                    let value = input.value.replace(/\./g, "");
+
+                    // 2. Check if it's a number
+                    if (!isNaN(value) && value !== "") {
+                        // 3. Add dots back every 3 digits
+                        input.value = value
+                            .toString()
+                            .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+                    } else {
+                        // If user types letters, remove them
+                        input.value = value.replace(/[^\d]/g, "");
+                    }
+                }
+            </script>
+
+            {% if error %}
+            <div class="error">{{ error }}</div>
+            {% endif %} {% if result %}
+            <div class="result">
+                <hr />
+                <p>Original: Rp. {{ result.original }}</p>
+                <p>Discount: {{ result.discount }}%</p>
+                <p class="highlight">Final Price: Rp. {{ result.final }}</p>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="footer">
+            <p>Simple Python Calculator App</p>
+        </div>
+    </body>
+</html>
